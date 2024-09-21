@@ -7,8 +7,9 @@ const ListTodo = () => {
   const getData = async () => {
     const response = await fetch("http://localhost:5100/todos");
     const data = await response.json();
-    console.log(data);
+    console.log("Data : ", data);
     setTodos(data);
+    //console.log("Todos: ", todos);
   };
   useEffect(() => {
     getData();
@@ -19,7 +20,6 @@ const ListTodo = () => {
     const data = await fetch(`http://localhost:5100/todos/${id}`, {
       method: "DELETE",
     });
-    console.log(data);
     setTodos(todos.filter((todo) => todo.todo_id !== id));
   };
   if (todos.length === 0)
@@ -38,6 +38,7 @@ const ListTodo = () => {
           <tr>
             <th scope="col">Id</th>
             <th scope="col">Description</th>
+            <th scope="col">Status</th>
             <th scope="col">Edit</th>
             <th scope="col">Delete</th>
           </tr>
@@ -47,6 +48,13 @@ const ListTodo = () => {
             <tr key={index}>
               <th scope={index % 2 === 0 ? "row" : ""}>{todo.todo_id}</th>
               <td>{todo.description}</td>
+              <td>
+                <input
+                  type="checkbox"
+                  class="form-check-input"
+                  checked={todo.completed}
+                />
+              </td>
               <td>
                 <EditTodo props={todo} />
               </td>

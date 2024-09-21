@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
 const EditTodo = ({ props }) => {
-  console.log(props.description);
+  //console.log(props.completed);
   const [desc, setDesc] = useState(props.description);
+  const [completed, setCompleted] = useState(props.completed);
   const handleSave = async (e) => {
     e.preventDefault();
     const response = await fetch(
@@ -12,7 +13,7 @@ const EditTodo = ({ props }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ description: desc }),
+        body: JSON.stringify({ description: desc, completed: completed }),
       }
     );
     console.log(response);
@@ -22,7 +23,7 @@ const EditTodo = ({ props }) => {
     <div>
       <button
         type="button"
-        class="btn btn-warning"
+        className="btn btn-warning"
         data-toggle="modal"
         data-target={`#id${props.todo_id}`}
       >
@@ -52,6 +53,14 @@ const EditTodo = ({ props }) => {
                 value={desc}
                 onChange={(e) => {
                   setDesc(e.target.value);
+                }}
+              />
+              <input
+                className="m-3"
+                type="checkbox"
+                onChange={(e) => {
+                  setCompleted(e.target.checked);
+                  //console.log(e.target.checked);
                 }}
               />
             </div>

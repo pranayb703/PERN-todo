@@ -9,10 +9,10 @@ const InputNewTodo = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ description: newTodo }),
+      body: JSON.stringify({ description: newTodo, completed: false }),
     });
     window.location = "/";
-    console.log(response);
+    //console.log(response);
   };
 
   return (
